@@ -8,34 +8,37 @@ const projects = [
   { 
     id: 1, 
     title: 'Delta Air Lines', 
-    role: 'Data Science Intern',
-    year: '2024',
-    tags: ['Python', 'AWS', 'ML'],
-    description: 'Built predictive maintenance forecasts for GSE equipment using Python pipelines and Facebook Prophet.',
+    role: 'Software Engineering Intern',
+    year: '2025',
+    tags: ['Python', 'AWS', 'Pandas'],
+    description: 'Developed modular Python data-processing scripts using AWS Athena and Pandas, implementing automated anomaly detection and Prophet-based forecasting for GSE equipment maintenance.',
   },
   { 
     id: 2, 
-    title: 'Traffic Detection', 
-    role: 'ML Engineer',
-    year: '2024',
-    tags: ['PyTorch', 'OpenCV', 'ResNet'],
-    description: 'Real-time traffic sign recognition system with 68% accuracy using ResNet-152 CNN.',
+    title: 'Sustain Sync AI Engine', 
+    role: 'Full Stack Developer',
+    year: '2025',
+    tags: ['Django', 'React', 'Docker'],
+    description: 'Engineered REST API with 9 endpoints for utility-bill analytics. Built AI forecasting using Prophet and RAG pipeline with FAISS retrieval. Containerized full stack with Docker.',
+    url: 'https://sustainsync.github.io/SustainSync-Website',
   },
   { 
     id: 3, 
-    title: 'Autonomous Robotics', 
-    role: 'Lead Programmer',
-    year: '2023',
-    tags: ['C++', 'PID', 'Navigation'],
-    description: 'Programmed 8 competition robots achieving top-3 global ranking.',
+    title: 'KSU Robotics Team', 
+    role: 'Programming Lead',
+    year: '2023-2024',
+    tags: ['C++', 'PID', 'Git'],
+    description: 'Led development of C++ control software for 8 VEXU competition robots, contributing to top-3 global ranking. Designed custom PID controllers and autonomous routines.',
+    url: 'https://github.com/KSUOwlBots',
   },
   { 
     id: 4, 
     title: 'TriVec Builders', 
-    role: 'Full Stack Dev',
-    year: '2023',
-    tags: ['HTML', 'CSS', 'API'],
-    description: 'Construction company website with JSON API integrations and SEO optimization.',
+    role: 'Web Developer',
+    year: '2025',
+    tags: ['HTML', 'CSS', 'JSON'],
+    description: 'Developed and deployed public-facing website using GitHub and Vercel. Integrated JSON-based data files for dynamic project updates and FormSubmit contact form.',
+    url: 'https://trivecbuilders.com',
   },
 ];
 
@@ -201,13 +204,13 @@ function App() {
                       <Box sx={{ mb: 6, fontFamily: 'monospace', fontSize: '0.95rem', lineHeight: 1.8 }}>
                         <Typography sx={{ color: '#00ff41', mb: 1 }}>$ cat profile.txt</Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
-                          Building intelligent systems and modern web applications.
+                          Computer Science student at Kennesaw State University.
                         </Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
-                          Former Data Science Intern @ Delta Air Lines.
+                          Previously Software Engineering Intern @ Delta Air Lines (Summer 2025).
                         </Typography>
                         <Typography sx={{ color: '#00ff41', mt: 2 }}>$ echo $STATUS</Typography>
-                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>READY_FOR_DEPLOYMENT</Typography>
+                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>GRADUATING_DEC_2025</Typography>
                       </Box>
                     </motion.div>
 
@@ -217,26 +220,6 @@ function App() {
                       transition={{ delay: 0.5, ...transitions }}
                     >
                       <Stack direction="row" spacing={2} sx={{ mb: 6, flexWrap: 'wrap', gap: 2 }}>
-                        <Button
-                          variant="contained"
-                          onClick={() => setActiveView('work')}
-                          sx={{
-                            bgcolor: '#00ff41',
-                            color: '#0a0a0a',
-                            px: 4,
-                            py: 1.5,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            border: '2px solid #00ff41',
-                            '&:hover': { 
-                              bgcolor: 'transparent', 
-                              color: '#00ff41',
-                              boxShadow: '0 0 20px rgba(0, 255, 65, 0.3)',
-                            },
-                          }}
-                        >
-                          ./projects
-                        </Button>
                         <Button
                           variant="outlined"
                           onClick={() => setActiveView('about')}
@@ -256,6 +239,26 @@ function App() {
                           }}
                         >
                           ./about
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          onClick={() => setActiveView('work')}
+                          sx={{
+                            borderColor: '#00ff41',
+                            color: '#00ff41',
+                            px: 4,
+                            py: 1.5,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            border: '2px solid #00ff41',
+                            '&:hover': { 
+                              bgcolor: '#00ff41', 
+                              color: '#0a0a0a',
+                              boxShadow: '0 0 20px rgba(0, 255, 65, 0.3)',
+                            },
+                          }}
+                        >
+                          ./projects
                         </Button>
                         <Button
                           variant="outlined"
@@ -289,7 +292,6 @@ function App() {
                         {[
                           { icon: <GitHub />, url: 'https://github.com/zaidkhan05' },
                           { icon: <LinkedIn />, url: 'https://www.linkedin.com/in/zaid-khan-cs/' },
-                          { icon: <Language />, url: 'https://www.faicon.me/' },
                         ].map((link, idx) => (
                           <IconButton
                             key={idx}
@@ -356,9 +358,9 @@ function App() {
                     </Box>
 
                     {[
-                      { label: 'STACK', icon: <Code />, items: ['React', 'Python', 'TypeScript', 'AWS'] },
-                      { label: 'DOMAIN', icon: <Terminal />, items: ['Full-Stack', 'AI/ML', 'Cloud'] },
-                      { label: 'SYSTEM', icon: <Memory />, items: ['CS @ KSU', 'Delta Airlines'] },
+                      { label: 'STACK', icon: <Code />, items: ['Python', 'Django', 'React'] },
+                      // { label: 'DOMAIN', icon: <Terminal />, items: ['Full-Stack', 'AI/ML', 'Cloud'] },
+                      { label: 'SYSTEM', icon: <Memory />, items: ['CS @ KSU', 'Graduating Dec 2025', 'Prev @ Delta Air Lines'] },
                     ].map((section, idx) => (
                       <motion.div
                         key={section.label}
@@ -518,12 +520,19 @@ function App() {
                         onHoverEnd={() => setHoveredProject(null)}
                       >
                         <Box
+                          component="a"
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           sx={{
                             py: 6,
                             borderBottom: '2px solid rgba(0, 255, 65, 0.1)',
                             cursor: 'pointer',
                             transition: 'all 0.3s',
                             position: 'relative',
+                            textDecoration: 'none',
+                            color: 'inherit',
+                            display: 'block',
                             '&:hover': {
                               pl: 4,
                               borderBottomColor: 'rgba(0, 255, 65, 0.3)',
@@ -687,14 +696,15 @@ function App() {
                   >
                     <Box>
                       <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', mb: 4, color: '#b0b0b0', lineHeight: 1.8 }}>
-                        Software developer and computer science student at Kennesaw State University,
-                        specializing in AI/ML engineering and full-stack development. Former Data Science
-                        Intern at Delta Air Lines, building production-grade ML systems.
+                        Computer Science student at Kennesaw State University graduating December 2025.
+                        Software Engineering Intern at Delta Air Lines (Summer 2025), where I developed
+                        Python data pipelines, automated anomaly detection systems, and built Prophet-based
+                        forecasting models for GSE equipment maintenance.
                       </Typography>
                       <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', color: '#b0b0b0', lineHeight: 1.8 }}>
-                        Experienced in building scalable applications, implementing machine learning models,
-                        and developing autonomous systems. Passionate about writing clean, efficient code
-                        and solving complex technical challenges.
+                        Experienced in full-stack development, AI/ML engineering, and robotics. Led programming
+                        for KSU's robotics team (top-3 global ranking) and developed production web applications.
+                        Passionate about building scalable systems and solving complex technical problems.
                       </Typography>
                     </Box>
 
@@ -713,7 +723,7 @@ function App() {
                         [TECH_STACK]
                       </Typography>
                       <Stack spacing={2}>
-                        {['Python', 'JavaScript', 'C++', 'React', 'AWS', 'PyTorch', 'Docker', 'Git'].map((skill) => (
+                        {['Python', 'C++', 'Django', 'Flask', 'React', 'Pandas', 'Postgres', 'Docker', 'Git'].map((skill) => (
                           <Typography 
                             key={skill} 
                             sx={{ 
