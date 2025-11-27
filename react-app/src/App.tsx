@@ -258,7 +258,7 @@ function App() {
                             },
                           }}
                         >
-                          ./projects
+                          ./experience
                         </Button>
                         <Button
                           variant="outlined"
@@ -509,7 +509,7 @@ function App() {
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
-                    PROJECTS
+                    EXPERIENCE / PROJECTS
                   </Typography>
 
                   <Stack spacing={0}>
