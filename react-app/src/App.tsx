@@ -162,7 +162,7 @@ function App() {
                             color: '#00ff41',
                           }}
                         >
-                          {'>'} SOFTWARE_DEVELOPER.EXE
+                          [zaid@arch ~]$ whoami
                         </Typography>
                       </Box>
                     </motion.div>
@@ -202,15 +202,15 @@ function App() {
                       transition={{ delay: 0.4, ...transitions }}
                     >
                       <Box sx={{ mb: 6, fontFamily: 'monospace', fontSize: '0.95rem', lineHeight: 1.8 }}>
-                        <Typography sx={{ color: '#00ff41', mb: 1 }}>$ cat profile.txt</Typography>
+                        <Typography sx={{ color: '#00ff41', mb: 1 }}>[zaid@arch ~]$ cat ~/.profile</Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
                           Computer Science student at Kennesaw State University.
                         </Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
                           Previously Software Engineering Intern @ Delta Air Lines (Summer 2025).
                         </Typography>
-                        <Typography sx={{ color: '#00ff41', mt: 2 }}>$ echo $STATUS</Typography>
-                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>GRADUATING_DEC_2025</Typography>
+                        <Typography sx={{ color: '#00ff41', mt: 2 }}>[zaid@arch ~]$ systemctl status career</Typography>
+                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>● Recent Computer Science Graduate (December 2025) from Kennesaw State University.</Typography>
                       </Box>
                     </motion.div>
 
@@ -360,7 +360,7 @@ function App() {
                     {[
                       { label: 'STACK', icon: <Code />, items: ['Python', 'C++', 'Django', 'React'] },
                       // { label: 'DOMAIN', icon: <Terminal />, items: ['Full-Stack', 'AI/ML', 'Cloud'] },
-                      { label: 'SYSTEM', icon: <Memory />, items: ['CS @ KSU', 'Graduating December 2025', 'Prev @ Delta Air Lines'] },
+                      { label: 'SYSTEM', icon: <Memory />, items: ['CS @ KSU', 'Graduated December 2025', 'Prev @ Delta Air Lines'] },
                     ].map((section, idx) => (
                       <motion.div
                         key={section.label}
@@ -505,7 +505,7 @@ function App() {
                         color: '#00ff41',
                       }}
                     >
-                      {'>'} ls -la ~/projects/
+                      [zaid@arch ~]$ ls -la ~/projects/
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
@@ -686,7 +686,7 @@ function App() {
                         color: '#00ff41',
                       }}
                     >
-                      {'>'} cat ~/about.txt
+                      [zaid@arch ~]$ cat ~/.config/about.md
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff', textAlign: 'center' }}>
@@ -791,7 +791,7 @@ function App() {
                         color: '#00ff41',
                       }}
                     >
-                      {'>'} init contact_protocol
+                      [zaid@arch ~]$ sudo systemctl start contact.service
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 6, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
