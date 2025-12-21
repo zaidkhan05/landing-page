@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ThemeProvider, Box, Typography, Button, Stack, IconButton } from '@mui/material';
+import { ThemeProvider, Box, Typography, Button, Stack, IconButton, Divider } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHub, LinkedIn, Language, Close, Code, Terminal, Memory } from '@mui/icons-material';
 import { minimalistTheme } from './theme';
@@ -204,8 +204,13 @@ function App() {
                       <Box sx={{ mb: 6, fontFamily: 'monospace', fontSize: '0.95rem', lineHeight: 1.8 }}>
                         <Typography sx={{ color: '#00ff41', mb: 1 }}>[zaid@arch ~]$ cat ~/.profile</Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
-                          Computer Science student at Kennesaw State University.
+                          Bachelors of Science in Computer Science at Kennesaw State University with a focus in AI and Machine Learning.
                         </Typography>
+                        <Divider sx={{ borderColor: 'rgba(255,255,255,0.15)', my: .5 }} />
+                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
+                          Looking to grow my skills in dev-ops and firmware development.
+                        </Typography>
+                        <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.15)', my: .5 }} />
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
                           Previously Software Engineering Intern @ Delta Air Lines (Summer 2025).
                         </Typography>
@@ -703,17 +708,17 @@ function App() {
                   >
                     <Box sx={{ maxWidth: 900 }}>
                       <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', mb: 4, color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
-                        I am currently a Senior at Kennesaw State University, graduating in December 2025
+                        I am a recent graduate of the College of Computing and Software Engineering Kennesaw State University as of December 2025
                         with my Bachelor's of Science in Computer Science. I previously interned as a Data 
                         Science Intern at Delta Air Lines during the summer of 2025, where I worked under
                         the GSE Performance and Technology team to work on data processing and usage
                         forecasting for critical ground support equipment. I am currently working on
-                        a proximity chat application using WebRTC and React for real-time communication
-                        between users in real world environments for use on the road.
+                        growing my skills in dev-ops, app development, and firmware development.
                       </Typography>
                       <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
                         Outside of the world of programming, I enjoy reading and learning
-                        about new technology trends. I also enjoy going to and watching motorsports, VEX
+                        about new technology trends. I recently switched over my laptop to dual boot Arch-Linux, 
+                        and have been exploring the various tools and configurations it offers. I also enjoy going to and watching motorsports, VEX
                         Robotics competitions, and battlebots events such as NHRL, and am looking to create
                         my own melty-brain style robot in the future to grow my skills in motion control systems.
                       </Typography>
@@ -804,7 +809,6 @@ function App() {
                     {[
                       { icon: <GitHub />, label: 'GitHub', url: 'https://github.com/zaidkhan05' },
                       { icon: <LinkedIn />, label: 'LinkedIn', url: 'https://www.linkedin.com/in/zaid-khan-cs/' },
-                      { icon: <Language />, label: 'Website', url: 'https://www.faicon.me/' },
                     ].map((link) => (
                       <motion.div key={link.label} whileHover={{ y: -10 }}>
                         <IconButton
