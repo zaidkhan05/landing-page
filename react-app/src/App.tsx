@@ -9,17 +9,17 @@ const projects = [
     id: 1, 
     title: 'Delta Air Lines', 
     role: 'Software Engineering Intern',
-    year: '2025',
-    tags: ['Python', 'AWS', 'Pandas'],
-    description: 'Developed modular Python data-processing scripts using AWS Athena and Pandas, implementing automated anomaly detection and Prophet-based forecasting for GSE equipment maintenance.',
+    year: 'Summer 2025',
+    tags: ['Python', 'SQL', 'Pandas', 'AWS Athena', 'Prophet'],
+    description: 'Developed Python-based data pipelines, anomaly detection, and forecasting systems using AWS Athena, Pandas, and Prophet to automate telematics data processing and predictive maintenance across multiple Delta Air Lines hubs.',
   },
   { 
     id: 2, 
     title: 'Sustain Sync AI Engine', 
-    role: 'Full Stack Developer',
-    year: '2025',
-    tags: ['Django', 'React', 'Docker'],
-    description: 'Engineered REST API with 9 endpoints for utility-bill analytics. Built AI forecasting using Prophet and RAG pipeline with FAISS retrieval. Containerized full stack with Docker.',
+    role: 'Developer',
+    year: 'Fall 2025',
+    tags: ['Docker', 'Django', 'Postgres', 'Python', 'React'],
+    description: 'Engineered a full-stack sustainability analytics platform with a Django-Postgres backend, REST APIs, AI forecasting services, and a React dashboard, containerized with Docker for reliable CI/CD deployment.',
     url: 'https://sustainsync.github.io/SustainSync-Website',
   },
   { 
@@ -27,18 +27,18 @@ const projects = [
     title: 'KSU Robotics Team', 
     role: 'Programming Lead',
     year: '2023-2024',
-    tags: ['C++', 'PID', 'Git'],
-    description: 'Led development of C++ control software for 8 VEXU competition robots, contributing to top-3 global ranking. Designed custom PID controllers and autonomous routines.',
+    tags: ['C++', 'PID', 'Git', 'Control Systems'],
+    description: 'Led development of C++ control software and custom PID systems for 8 competition robots, managing Git workflows and mentoring a 13-member team that achieved a top-3 global VEXU ranking.',
     url: 'https://github.com/KSUOwlBots',
   },
   { 
     id: 4, 
-    title: 'TriVec Builders', 
-    role: 'Web Developer',
-    year: '2025',
-    tags: ['HTML', 'CSS', 'JSON'],
-    description: 'Developed and deployed public-facing website using GitHub and Vercel. Integrated JSON-based data files for dynamic project updates and FormSubmit contact form.',
-    url: 'https://trivecbuilders.com',
+    title: 'Restaurant Management System', 
+    role: 'Developer',
+    year: 'Spring 2025',
+    tags: ['Python', 'Flask', 'Pandas', 'HTML', 'CSS'],
+    description: 'Built a Flask-based restaurant management app with role-specific interfaces, REST APIs, and CSV-backed data handling, developed collaboratively in an Agile team using Python, Pandas, and HTML/CSS.',
+    url: 'https://github.com/zaidkhan05/SWE-3313-SPRINT-2',
   },
 ];
 
@@ -258,7 +258,7 @@ function App() {
                             },
                           }}
                         >
-                          ./projects
+                          ./experience
                         </Button>
                         <Button
                           variant="outlined"
@@ -358,9 +358,9 @@ function App() {
                     </Box>
 
                     {[
-                      { label: 'STACK', icon: <Code />, items: ['Python', 'Django', 'React'] },
+                      { label: 'STACK', icon: <Code />, items: ['Python', 'C++', 'Django', 'React'] },
                       // { label: 'DOMAIN', icon: <Terminal />, items: ['Full-Stack', 'AI/ML', 'Cloud'] },
-                      { label: 'SYSTEM', icon: <Memory />, items: ['CS @ KSU', 'Graduating Dec 2025', 'Prev @ Delta Air Lines'] },
+                      { label: 'SYSTEM', icon: <Memory />, items: ['CS @ KSU', 'Graduating December 2025', 'Prev @ Delta Air Lines'] },
                     ].map((section, idx) => (
                       <motion.div
                         key={section.label}
@@ -450,6 +450,9 @@ function App() {
                 minHeight: '100vh', 
                 px: { xs: 3, md: 8 }, 
                 py: 8,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 bgcolor: '#0a0a0a',
                 color: '#ffffff',
                 position: 'relative',
@@ -506,7 +509,7 @@ function App() {
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
-                    PROJECTS
+                    EXPERIENCE / PROJECTS
                   </Typography>
 
                   <Stack spacing={0}>
@@ -628,6 +631,9 @@ function App() {
                 minHeight: '100vh', 
                 px: { xs: 3, md: 8 }, 
                 py: 8,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
                 bgcolor: '#0a0a0a',
                 color: '#ffffff',
                 position: 'relative',
@@ -667,7 +673,7 @@ function App() {
                   <Close />
                 </IconButton>
 
-                <Box sx={{ maxWidth: 1200, mx: 'auto', position: 'relative', zIndex: 1 }}>
+                <Box sx={{ maxWidth: 1200, mx: 'auto', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 8 }}>
                     <Code sx={{ fontSize: '1rem', color: '#00ff41' }} />
                     <Typography
@@ -683,64 +689,34 @@ function App() {
                       {'>'} cat ~/about.txt
                     </Typography>
                   </Box>
-                  <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
+                  <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff', textAlign: 'center' }}>
                     ABOUT
                   </Typography>
 
                   <Box
                     sx={{
-                      display: 'grid',
-                      gridTemplateColumns: { xs: '1fr', md: '2fr 1fr' },
-                      gap: 8,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: 4,
                     }}
                   >
-                    <Box>
-                      <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', mb: 4, color: '#b0b0b0', lineHeight: 1.8 }}>
-                        Computer Science student at Kennesaw State University graduating December 2025.
-                        Software Engineering Intern at Delta Air Lines (Summer 2025), where I developed
-                        Python data pipelines, automated anomaly detection systems, and built Prophet-based
-                        forecasting models for GSE equipment maintenance.
+                    <Box sx={{ maxWidth: 900 }}>
+                      <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', mb: 4, color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
+                        I am currently a Senior at Kennesaw State University, graduating in December 2025
+                        with my Bachelor's of Science in Computer Science. I previously interned as a Data 
+                        Science Intern at Delta Air Lines during the summer of 2025, where I worked under
+                        the GSE Performance and Technology team to work on data processing and usage
+                        forecasting for critical ground support equipment. I am currently working on
+                        a proximity chat application using WebRTC and React for real-time communication
+                        between users in real world environments for use on the road.
                       </Typography>
-                      <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', color: '#b0b0b0', lineHeight: 1.8 }}>
-                        Experienced in full-stack development, AI/ML engineering, and robotics. Led programming
-                        for KSU's robotics team (top-3 global ranking) and developed production web applications.
-                        Passionate about building scalable systems and solving complex technical problems.
+                      <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
+                        Outside of the world of programming, I enjoy reading and learning
+                        about new technology trends. I also enjoy going to and watching motorsports, VEX
+                        Robotics competitions, and battlebots events such as NHRL, and am looking to create
+                        my own melty-brain style robot in the future to grow my skills in motion control systems.
                       </Typography>
-                    </Box>
-
-                    <Box>
-                      <Typography
-                        sx={{
-                          fontSize: '0.75rem',
-                          fontFamily: 'monospace',
-                          letterSpacing: '0.2em',
-                          textTransform: 'uppercase',
-                          mb: 3,
-                          fontWeight: 700,
-                          color: '#00ff41',
-                        }}
-                      >
-                        [TECH_STACK]
-                      </Typography>
-                      <Stack spacing={2}>
-                        {['Python', 'C++', 'Django', 'Flask', 'React', 'Pandas', 'Postgres', 'Docker', 'Git'].map((skill) => (
-                          <Typography 
-                            key={skill} 
-                            sx={{ 
-                              fontSize: '1.5rem', 
-                              fontWeight: 700,
-                              fontFamily: 'monospace',
-                              color: '#ffffff',
-                              '&::before': {
-                                content: '"» "',
-                                color: '#00ff41',
-                              },
-                            }}
-                          >
-                            {skill}
-                          </Typography>
-                        ))}
-                      </Stack>
                     </Box>
                   </Box>
                 </Box>
