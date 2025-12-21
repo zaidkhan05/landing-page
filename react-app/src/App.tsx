@@ -8,7 +8,7 @@ const projects = [
   { 
     id: 1, 
     title: 'Delta Air Lines', 
-    role: 'Software Engineering Intern',
+    role: 'Data Science Intern',
     year: 'Summer 2025',
     tags: ['Python', 'SQL', 'Pandas', 'AWS Athena', 'Prophet'],
     description: 'Developed Python-based data pipelines, anomaly detection, and forecasting systems using AWS Athena, Pandas, and Prophet to automate telematics data processing and predictive maintenance across multiple Delta Air Lines hubs.',
@@ -212,7 +212,7 @@ function App() {
                         </Typography>
                         <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.15)', my: .5 }} />
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
-                          Previously Software Engineering Intern @ Delta Air Lines (Summer 2025).
+                          Previously Data Science Intern @ Delta Air Lines (Summer 2025).
                         </Typography>
                         <Typography sx={{ color: '#00ff41', mt: 2 }}>[zaid@arch ~]$ systemctl status career</Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>● Recent Computer Science Graduate (December 2025) from Kennesaw State University.</Typography>
