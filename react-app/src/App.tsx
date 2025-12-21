@@ -262,7 +262,7 @@ function App() {
                         </Button>
                         <Button
                           variant="outlined"
-                          onClick={() => window.open('/resume.pdf', '_blank')}
+                          onClick={() => window.open('/Zaid_Khan_Resume.pdf', '_blank')}
                           sx={{
                             borderColor: '#00ff41',
                             color: '#00ff41',
