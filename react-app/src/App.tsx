@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ThemeProvider, Box, Typography, Button, Stack, IconButton, Divider } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GitHub, LinkedIn, Language, Close, Code, Terminal, Memory } from '@mui/icons-material';
+import { GitHub, LinkedIn, Close, Code, Terminal, Memory } from '@mui/icons-material';
 import { minimalistTheme } from './theme';
 
 const projects = [
