@@ -8,14 +8,14 @@ const projects = [
   { 
     id: 1, 
     title: 'Delta Air Lines', 
-    role: 'Data Science Intern',
+    role: 'Data Engineering Intern',
     year: 'Summer 2025',
     tags: ['Python', 'SQL', 'Pandas', 'AWS Athena', 'Prophet'],
     description: 'Developed Python-based data pipelines, anomaly detection, and forecasting systems using AWS Athena, Pandas, and Prophet to automate telematics data processing and predictive maintenance across multiple Delta Air Lines hubs.',
   },
   { 
     id: 2, 
-    title: 'Sustain Sync AI Engine', 
+      title: 'Sustain Sync AI Engine', 
     role: 'Developer',
     year: 'Fall 2025',
     tags: ['Docker', 'Django', 'Postgres', 'Python', 'React'],
@@ -839,6 +839,9 @@ function App() {
         </AnimatePresence>
       </Box>
     </ThemeProvider>
+    </Box>
+      {/* <Footer /> */}
+    </Box>
   );
 }
 
