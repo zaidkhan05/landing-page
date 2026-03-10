@@ -839,9 +839,6 @@ function App() {
         </AnimatePresence>
       </Box>
     </ThemeProvider>
-    </Box>
-      {/* <Footer /> */}
-    </Box>
   );
 }
 
