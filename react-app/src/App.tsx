@@ -157,6 +157,9 @@ function App() {
                     fontWeight: 600,
                     position: 'relative',
                     transition: 'color 0.3s',
+                    px: { xs: 1, md: 1.5 },
+                    py: 0.5,
+                    minWidth: 'auto',
                     '&:hover': { color: '#00ff41' },
                     '&::after': {
                       content: '""',
