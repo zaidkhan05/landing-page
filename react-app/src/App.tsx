@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { ThemeProvider, Box, Typography, Button, Stack, IconButton, Divider } from '@mui/material';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GitHub, LinkedIn, Close, Code, Terminal, Memory } from '@mui/icons-material';
+import { useState, useEffect, useRef } from 'react';
+import { ThemeProvider, Box, Typography, Button, Stack, IconButton, Divider, AppBar, Toolbar } from '@mui/material';
+import { motion } from 'framer-motion';
+import { GitHub, LinkedIn, Code, Terminal, Memory } from '@mui/icons-material';
 import { dastyles } from './theme';
 
 const projects = [
@@ -43,10 +43,15 @@ const projects = [
 ];
 
 function App() {
-  const [activeView, setActiveView] = useState<'home' | 'about' | 'work' | 'contact'>('home');
+  const [activeSection, setActiveSection] = useState<string>('hero');
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [binaryText, setBinaryText] = useState('');
   const [hexValues, setHexValues] = useState<string[]>([]);
+  
+  // Refs for sections
+  const heroRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const experienceRef = useRef<HTMLDivElement>(null);
 
   // Generate random binary text for tech aesthetic
   useEffect(() => {
@@ -72,6 +77,36 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  // Intersection observer for active section tracking
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    [heroRef, aboutRef, experienceRef].forEach((ref) => {
+      if (ref.current) observer.observe(ref.current);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Smooth scroll to section
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const transitions = {
     type: 'spring' as const,
     stiffness: 200,
@@ -81,49 +116,106 @@ function App() {
   return (
     <ThemeProvider theme={dastyles}>
       <Box sx={{ minHeight: '100vh', bgcolor: '#0a0a0a', color: '#ffffff' }}>
-        <AnimatePresence mode="wait">
-          {activeView === 'home' && (
-            <motion.div
-              key="home"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={transitions}
-            >
-              <Box sx={{ minHeight: '100vh', position: 'relative' }}>
-                {/* Hero Section - Split Screen Design */}
-                <Box
+        {/* Floating Navigation Bar */}
+        <AppBar 
+          position="sticky" 
+          elevation={0}
+          sx={{ 
+            bgcolor: 'rgba(10, 10, 10, 0.8)',
+            backdropFilter: 'blur(10px)',
+            borderBottom: '1px solid rgba(0, 255, 65, 0.1)',
+          }}
+        >
+          <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Terminal sx={{ fontSize: '1.2rem', color: '#00ff41' }} />
+              <Typography 
+                sx={{ 
+                  fontFamily: 'monospace', 
+                  color: '#00ff41', 
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  display: { xs: 'none', sm: 'block' }
+                }}
+              >
+                [zaid@dev]
+              </Typography>
+            </Box>
+            <Stack direction="row" spacing={{ xs: 2, md: 4 }}>
+              {[
+                { label: 'Home', ref: heroRef, id: 'hero' },
+                { label: 'About', ref: aboutRef, id: 'about' },
+                { label: 'Experience', ref: experienceRef, id: 'experience' },
+              ].map((item) => (
+                <Button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.ref)}
                   sx={{
-                    minHeight: '100vh',
-                    display: 'grid',
-                    gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-                    gap: 0,
+                    color: activeSection === item.id ? '#00ff41' : '#b0b0b0',
+                    fontFamily: 'monospace',
+                    fontSize: { xs: '0.75rem', md: '0.9rem' },
+                    fontWeight: 600,
+                    position: 'relative',
+                    transition: 'color 0.3s',
+                    '&:hover': { color: '#00ff41' },
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: '2px',
+                      bgcolor: '#00ff41',
+                      transform: activeSection === item.id ? 'scaleX(1)' : 'scaleX(0)',
+                      transition: 'transform 0.3s',
+                    },
                   }}
                 >
-                  {/* Left Panel - Info */}
-                  <Box
-                    sx={{
-                      bgcolor: '#0a0a0a',
-                      color: '#ffffff',
-                      p: { xs: 4, md: 8 },
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundImage: `
-                          linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px)
-                        `,
-                        backgroundSize: '30px 30px',
-                        pointerEvents: 'none',
+                  {item.label}
+                </Button>
+              ))}
+            </Stack>
+          </Toolbar>
+        </AppBar>
+
+        {/* Hero Section */}
+        <Box 
+          id="hero" 
+          ref={heroRef}
+          sx={{ minHeight: '50vh', position: 'relative' }}
+        >
+          <Box
+            sx={{
+              minHeight: '50vh',
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+              gap: 0,
+            }}
+          >
+            {/* Left Panel - Info */}
+            <Box
+              sx={{
+                bgcolor: '#0a0a0a',
+                color: '#ffffff',
+                p: { xs: 4, md: 8 },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundImage: `
+                    linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px)
+                  `,
+                  backgroundSize: '30px 30px',
+                  pointerEvents: 'none',
                       },
                     }}
                   >
@@ -227,46 +319,6 @@ function App() {
                       <Stack direction="row" spacing={2} sx={{ mb: 6, flexWrap: 'wrap', gap: 2 }}>
                         <Button
                           variant="outlined"
-                          onClick={() => setActiveView('about')}
-                          sx={{
-                            borderColor: '#00ff41',
-                            color: '#00ff41',
-                            px: 4,
-                            py: 1.5,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            border: '2px solid #00ff41',
-                            '&:hover': { 
-                              bgcolor: '#00ff41', 
-                              color: '#0a0a0a',
-                              boxShadow: '0 0 20px rgba(0, 255, 65, 0.3)',
-                            },
-                          }}
-                        >
-                          ./about
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          onClick={() => setActiveView('work')}
-                          sx={{
-                            borderColor: '#00ff41',
-                            color: '#00ff41',
-                            px: 4,
-                            py: 1.5,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            border: '2px solid #00ff41',
-                            '&:hover': { 
-                              bgcolor: '#00ff41', 
-                              color: '#0a0a0a',
-                              boxShadow: '0 0 20px rgba(0, 255, 65, 0.3)',
-                            },
-                          }}
-                        >
-                          ./experience
-                        </Button>
-                        <Button
-                          variant="outlined"
                           onClick={() => window.open('/Zaid_Khan_Resume.pdf', '_blank')}
                           sx={{
                             borderColor: '#00ff41',
@@ -317,18 +369,18 @@ function App() {
                         ))}
                       </Box>
                     </motion.div>
-                  </Box>
+            </Box>
 
-                  {/* Right Panel - Visual */}
-                  <Box
-                    sx={{
-                      bgcolor: '#0d0d0d',
-                      p: { xs: 4, md: 8 },
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      gap: 3,
-                      position: 'relative',
+            {/* Right Panel - Visual */}
+            <Box
+              sx={{
+                bgcolor: '#0d0d0d',
+                p: { xs: 4, md: 8 },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                gap: 3,
+                position: 'relative',
                       overflow: 'hidden',
                       '&::before': {
                         content: '""',
@@ -436,92 +488,142 @@ function App() {
                         </Box>
                       </motion.div>
                     ))}
-                  </Box>
+            </Box>
+          </Box>
+        </Box>
 
+        {/* About Section */}
+        <Box 
+          id="about" 
+          ref={aboutRef}
+          sx={{ 
+            minHeight: 'auto', 
+            px: { xs: 3, md: 8 }, 
+            py: 4,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            bgcolor: '#0a0a0a',
+            color: '#ffffff',
+            position: 'relative',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundImage: `
+                linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px)
+              `,
+              backgroundSize: '30px 30px',
+              pointerEvents: 'none',
+            },
+          }}>
+          <Box sx={{ maxWidth: 1200, mx: 'auto', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 8 }}>
+              <Code sx={{ fontSize: '1rem', color: '#00ff41' }} />
+              <Typography
+                sx={{
+                  fontSize: '0.75rem',
+                  fontFamily: 'monospace',
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  fontWeight: 700,
+                  color: '#00ff41',
+                }}
+              >
+                [zaid@dev ~]$ cat ~/.config/about.md
+              </Typography>
+            </Box>
+            <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff', textAlign: 'center' }}>
+              ABOUT
+            </Typography>
 
-                </Box>
-              </Box>
-            </motion.div>
-          )}
-
-          {activeView === 'work' && (
-            <motion.div
-              key="work"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <Box sx={{ 
-                minHeight: '100vh', 
-                px: { xs: 3, md: 8 }, 
-                py: 8,
+            <Box
+              sx={{
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
-                bgcolor: '#0a0a0a',
-                color: '#ffffff',
-                position: 'relative',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundImage: `
-                    linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '30px 30px',
-                  pointerEvents: 'none',
-                },
-              }}>
-                <IconButton
-                  onClick={() => setActiveView('home')}
-                  sx={{
-                    position: 'fixed',
-                    top: 40,
-                    right: 40,
-                    zIndex: 1000,
-                    width: 60,
-                    height: 60,
-                    border: '2px solid #00ff41',
-                    color: '#00ff41',
-                    '&:hover': { 
-                      bgcolor: '#00ff41', 
-                      color: '#0a0a0a',
-                      boxShadow: '0 0 20px rgba(0, 255, 65, 0.5)',
-                    },
-                  }}
-                >
-                  <Close />
-                </IconButton>
+                gap: 4,
+              }}
+            >
+              <Box sx={{ maxWidth: 900 }}>
+                <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', mb: 4, color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
+                        I am a recent graduate of the College of Computing and Software Engineering Kennesaw State University as of December 2025
+                        with my Bachelor's of Science in Computer Science. I previously interned as a Data 
+                        Science Intern at Delta Air Lines during the summer of 2025, where I worked under
+                        the GSE Performance and Technology team to work on data processing and usage
+                        forecasting for critical ground support equipment. I am currently working on
+                        growing my skills in dev-ops, app development, and firmware development.
+                      </Typography>
+                      <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
+                        Outside of the world of programming, I enjoy reading and learning
+                        about new technology trends. I dual boot Arch-Linux on my laptop, 
+                        and have been exploring the various tools and configurations it offers *and struggling with drivers and firmware*. I also enjoy going to and watching motorsports, VEX
+                        Robotics competitions, and battlebots events such as NHRL, and am looking to create
+                        my own melty-brain style robot in the future to grow my skills in motion control systems.
+                      </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+        
+        {/* Experience Section */}
+        <Box 
+          id="experience" 
+          ref={experienceRef}
+          sx={{ 
+            minHeight: 'auto', 
+            px: { xs: 3, md: 8 }, 
+            py: 4,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            bgcolor: '#0a0a0a',
+            color: '#ffffff',
+            position: 'relative',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundImage: `
+                linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px)
+              `,
+              backgroundSize: '30px 30px',
+              pointerEvents: 'none',
+            },
+          }}>
+          <Box sx={{ maxWidth: 1400, mx: 'auto', position: 'relative', zIndex: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+              <Terminal sx={{ fontSize: '1rem', color: '#00ff41' }} />
+              <Typography
+                sx={{
+                  fontSize: '0.75rem',
+                  fontFamily: 'monospace',
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  fontWeight: 700,
+                  color: '#00ff41',
+                }}
+              >
+                [zaid@dev ~]$ ls -la ~/projects/
+              </Typography>
+            </Box>
+            <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
+              EXPERIENCE / PROJECTS
+            </Typography>
 
-                <Box sx={{ maxWidth: 1400, mx: 'auto', position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                    <Terminal sx={{ fontSize: '1rem', color: '#00ff41' }} />
-                    <Typography
-                      sx={{
-                        fontSize: '0.75rem',
-                        fontFamily: 'monospace',
-                        letterSpacing: '0.2em',
-                        textTransform: 'uppercase',
-                        fontWeight: 700,
-                        color: '#00ff41',
-                      }}
-                    >
-                      [zaid@dev ~]$ ls -la ~/projects/
-                    </Typography>
-                  </Box>
-                  <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
-                    EXPERIENCE / PROJECTS
-                  </Typography>
-
-                  <Stack spacing={0}>
-                    {projects.map((project, idx) => (
-                      <motion.div
-                        key={project.id}
-                        initial={{ y: 100, opacity: 0 }}
+            <Stack spacing={0}>
+              {projects.map((project, idx) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ y: 100, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: idx * 0.1 }}
                         onHoverStart={() => setHoveredProject(project.id)}
@@ -618,225 +720,10 @@ function App() {
                           </Stack>
                         </Box>
                       </motion.div>
-                    ))}
-                  </Stack>
-                </Box>
-              </Box>
-            </motion.div>
-          )}
-
-          {activeView === 'about' && (
-            <motion.div
-              key="about"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <Box sx={{ 
-                minHeight: '100vh', 
-                px: { xs: 3, md: 8 }, 
-                py: 8,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                bgcolor: '#0a0a0a',
-                color: '#ffffff',
-                position: 'relative',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundImage: `
-                    linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '30px 30px',
-                  pointerEvents: 'none',
-                },
-              }}>
-                <IconButton
-                  onClick={() => setActiveView('home')}
-                  sx={{
-                    position: 'fixed',
-                    top: 40,
-                    right: 40,
-                    zIndex: 1000,
-                    width: 60,
-                    height: 60,
-                    border: '2px solid #00ff41',
-                    color: '#00ff41',
-                    '&:hover': { 
-                      bgcolor: '#00ff41', 
-                      color: '#0a0a0a',
-                      boxShadow: '0 0 20px rgba(0, 255, 65, 0.5)',
-                    },
-                  }}
-                >
-                  <Close />
-                </IconButton>
-
-                <Box sx={{ maxWidth: 1200, mx: 'auto', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 8 }}>
-                    <Code sx={{ fontSize: '1rem', color: '#00ff41' }} />
-                    <Typography
-                      sx={{
-                        fontSize: '0.75rem',
-                        fontFamily: 'monospace',
-                        letterSpacing: '0.2em',
-                        textTransform: 'uppercase',
-                        fontWeight: 700,
-                        color: '#00ff41',
-                      }}
-                    >
-                      [zaid@dev ~]$ cat ~/.config/about.md
-                    </Typography>
-                  </Box>
-                  <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff', textAlign: 'center' }}>
-                    ABOUT
-                  </Typography>
-
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      gap: 4,
-                    }}
-                  >
-                    <Box sx={{ maxWidth: 900 }}>
-                      <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', mb: 4, color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
-                        I am a recent graduate of the College of Computing and Software Engineering Kennesaw State University as of December 2025
-                        with my Bachelor's of Science in Computer Science. I previously interned as a Data 
-                        Science Intern at Delta Air Lines during the summer of 2025, where I worked under
-                        the GSE Performance and Technology team to work on data processing and usage
-                        forecasting for critical ground support equipment. I am currently working on
-                        growing my skills in dev-ops, app development, and firmware development.
-                      </Typography>
-                      <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
-                        Outside of the world of programming, I enjoy reading and learning
-                        about new technology trends. I dual boot Arch-Linux on my laptop, 
-                        and have been exploring the various tools and configurations it offers *and struggling with drivers and firmware*. I also enjoy going to and watching motorsports, VEX
-                        Robotics competitions, and battlebots events such as NHRL, and am looking to create
-                        my own melty-brain style robot in the future to grow my skills in motion control systems.
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Box>
-              </Box>
-            </motion.div>
-          )}
-
-          {activeView === 'contact' && (
-            <motion.div
-              key="contact"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <Box
-                sx={{
-                  minHeight: '100vh',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  px: { xs: 3, md: 8 },
-                  bgcolor: '#0a0a0a',
-                  color: '#ffffff',
-                  position: 'relative',
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundImage: `
-                      linear-gradient(rgba(0, 255, 65, 0.02) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(0, 255, 65, 0.02) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '30px 30px',
-                    pointerEvents: 'none',
-                  },
-                }}
-              >
-                <IconButton
-                  onClick={() => setActiveView('home')}
-                  sx={{
-                    position: 'fixed',
-                    top: 40,
-                    right: 40,
-                    zIndex: 1000,
-                    width: 60,
-                    height: 60,
-                    border: '2px solid #00ff41',
-                    color: '#00ff41',
-                    '&:hover': { 
-                      bgcolor: '#00ff41', 
-                      color: '#0a0a0a',
-                      boxShadow: '0 0 20px rgba(0, 255, 65, 0.5)',
-                    },
-                  }}
-                >
-                  <Close />
-                </IconButton>
-
-                <Box sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 6, justifyContent: 'center' }}>
-                    <Terminal sx={{ fontSize: '1rem', color: '#00ff41' }} />
-                    <Typography
-                      sx={{
-                        fontSize: '0.75rem',
-                        fontFamily: 'monospace',
-                        letterSpacing: '0.2em',
-                        textTransform: 'uppercase',
-                        fontWeight: 700,
-                        color: '#00ff41',
-                      }}
-                    >
-                      [zaid@dev ~]$ sudo systemctl start contact.service
-                    </Typography>
-                  </Box>
-                  <Typography variant="h2" sx={{ mb: 6, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
-                    LET'S
-                    <br />
-                    CONNECT
-                  </Typography>
-
-                  <Stack direction="row" spacing={4} justifyContent="center">
-                    {[
-                      { icon: <GitHub />, label: 'GitHub', url: 'https://github.com/zaidkhan05' },
-                      { icon: <LinkedIn />, label: 'LinkedIn', url: 'https://www.linkedin.com/in/zaid-khan-cs/' },
-                    ].map((link) => (
-                      <motion.div key={link.label} whileHover={{ y: -10 }}>
-                        <IconButton
-                          component="a"
-                          href={link.url}
-                          target="_blank"
-                          sx={{
-                            width: 80,
-                            height: 80,
-                            border: '2px solid #00ff41',
-                            color: '#00ff41',
-                            '&:hover': { 
-                              bgcolor: '#00ff41', 
-                              color: '#0a0a0a',
-                              boxShadow: '0 0 30px rgba(0, 255, 65, 0.5)',
-                            },
-                          }}
-                        >
-                          {link.icon}
-                        </IconButton>
-                      </motion.div>
-                    ))}
-                  </Stack>
-                </Box>
-              </Box>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              ))}
+            </Stack>
+          </Box>
+        </Box>
       </Box>
     </ThemeProvider>
   );
