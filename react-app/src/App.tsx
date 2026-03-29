@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ThemeProvider, Box, Typography, Button, Stack, IconButton, Divider } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHub, LinkedIn, Close, Code, Terminal, Memory } from '@mui/icons-material';
-import { minimalistTheme } from './theme';
+import { dastyles } from './theme';
 
 const projects = [
   { 
@@ -79,7 +79,7 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={minimalistTheme}>
+    <ThemeProvider theme={dastyles}>
       <Box sx={{ minHeight: '100vh', bgcolor: '#0a0a0a', color: '#ffffff' }}>
         <AnimatePresence mode="wait">
           {activeView === 'home' && (
@@ -162,7 +162,7 @@ function App() {
                             color: '#00ff41',
                           }}
                         >
-                          [zaid@arch ~]$ whoami
+                          [zaid@dev ~]$ whoami
                         </Typography>
                       </Box>
                     </motion.div>
@@ -202,7 +202,7 @@ function App() {
                       transition={{ delay: 0.4, ...transitions }}
                     >
                       <Box sx={{ mb: 6, fontFamily: 'monospace', fontSize: '0.95rem', lineHeight: 1.8 }}>
-                        <Typography sx={{ color: '#00ff41', mb: 1 }}>[zaid@arch ~]$ cat ~/.profile</Typography>
+                        <Typography sx={{ color: '#00ff41', mb: 1 }}>[zaid@dev ~]$ cat ~/.profile</Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
                           Bachelors of Science in Computer Science at Kennesaw State University with a focus in AI and Machine Learning.
                         </Typography>
@@ -214,7 +214,7 @@ function App() {
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
                           Previously Data Science Intern @ Delta Air Lines (Summer 2025).
                         </Typography>
-                        <Typography sx={{ color: '#00ff41', mt: 2 }}>[zaid@arch ~]$ systemctl status career</Typography>
+                        <Typography sx={{ color: '#00ff41', mt: 2 }}>[zaid@dev ~]$ systemctl status career</Typography>
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>● Recent Computer Science Graduate (December 2025) from Kennesaw State University.</Typography>
                       </Box>
                     </motion.div>
@@ -510,7 +510,7 @@ function App() {
                         color: '#00ff41',
                       }}
                     >
-                      [zaid@arch ~]$ ls -la ~/projects/
+                      [zaid@dev ~]$ ls -la ~/projects/
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>
@@ -691,7 +691,7 @@ function App() {
                         color: '#00ff41',
                       }}
                     >
-                      [zaid@arch ~]$ cat ~/.config/about.md
+                      [zaid@dev ~]$ cat ~/.config/about.md
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 8, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff', textAlign: 'center' }}>
@@ -717,8 +717,8 @@ function App() {
                       </Typography>
                       <Typography variant="body1" paragraph sx={{ fontSize: '1.25rem', color: '#b0b0b0', lineHeight: 1.8, textAlign: 'center' }}>
                         Outside of the world of programming, I enjoy reading and learning
-                        about new technology trends. I recently switched over my laptop to dual boot Arch-Linux, 
-                        and have been exploring the various tools and configurations it offers. I also enjoy going to and watching motorsports, VEX
+                        about new technology trends. I dual boot Arch-Linux on my laptop, 
+                        and have been exploring the various tools and configurations it offers *and struggling with drivers and firmware*. I also enjoy going to and watching motorsports, VEX
                         Robotics competitions, and battlebots events such as NHRL, and am looking to create
                         my own melty-brain style robot in the future to grow my skills in motion control systems.
                       </Typography>
@@ -796,7 +796,7 @@ function App() {
                         color: '#00ff41',
                       }}
                     >
-                      [zaid@arch ~]$ sudo systemctl start contact.service
+                      [zaid@dev ~]$ sudo systemctl start contact.service
                     </Typography>
                   </Box>
                   <Typography variant="h2" sx={{ mb: 6, fontSize: { xs: '3rem', md: '5rem' }, color: '#ffffff' }}>

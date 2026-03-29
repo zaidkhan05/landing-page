@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const minimalistTheme = createTheme({
+export const dastyles = createTheme({
   palette: {
     mode: 'light',
     primary: {
