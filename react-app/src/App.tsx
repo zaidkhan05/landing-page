@@ -307,10 +307,12 @@ function App() {
                         </Typography>
                         <Divider sx={{ borderColor: 'rgba(255, 255, 255, 0.15)', my: .5 }} />
                         <Typography sx={{ color: '#b0b0b0', pl: 2 }}>
-                          Previously Data Science Intern @ Delta Air Lines (Summer 2025).
+                          Previously Software Engineering Intern @ Delta Air Lines (Summer 2025).
                         </Typography>
                         <Typography sx={{ color: '#00ff41', mt: 2 }}>[zaid@dev ~]$ systemctl status career</Typography>
-                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>● Recent Computer Science Graduate (December 2025) from Kennesaw State University.</Typography>
+                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>Recent Computer Science Graduate (December 2025) from Kennesaw State University.</Typography>
+                        <Divider sx={{ borderColor: 'rgba(255,255,255,0.15)', my: .5 }} />
+                        <Typography sx={{ color: '#b0b0b0', pl: 2 }}>Seeking New Graduate roles in Software or Data Engineering.</Typography>
                       </Box>
                     </motion.div>
 
